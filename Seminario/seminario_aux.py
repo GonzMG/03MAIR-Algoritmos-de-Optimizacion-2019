@@ -1,4 +1,5 @@
 import random
+from itertools import permutations
 
 N = ["1","2","3","4","5","6","7","8","9"]
 O = ["+","-","*","/"]
@@ -17,15 +18,25 @@ def algoritmo_a(val):
 
 def calcular(l):
     expr = ""
-    for i in l:
-        expr += i
-        if i != len(l):
+    for i in range(len(l)):
+        expr += str(l[i])
+        if i < len(l) - 1:
             expr += O[i]
     return expr
 
-def fbruta(val):
-    pass
+def space(n):
+    return list(permutations(range(1,n+1),5))
+
+def fuerza_bruta(val):
+    pos = space(9) # posibles soluciones para 1..9 numeros
+    print(pos)
+    for p in pos:
+        expr = calcular(p)
+        print(eval(expr))
+        if eval(expr) == val:
+            return expr
+    return len(pos)
+
 
 if __name__ == "__main__":
-    target = 4
-    sol = algoritmo_a(target)
+    print(fuerza_bruta(4))
